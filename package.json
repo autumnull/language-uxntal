@@ -1,6 +1,6 @@
 {
   "name": "language-uxntal",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Atom language support for Uxntal, the programming language for the Uxn virtual machine.",
   "keywords": [
     "language",
