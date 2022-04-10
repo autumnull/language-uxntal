@@ -8,12 +8,13 @@
     "uxn",
     "uxntal"
   ],
-  "repository": "https://github.com/autumnull/language-uxntal",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/autumnull/language-uxntal.git"
+  },
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
-  "dependencies": {
-    "tree-sitter-uxntal": "^0.2.0"
-  }
+  "dependencies": {}
 }

@@ -1,0 +1,233 @@
+scopeName: 'source.uxntal'
+fileTypes: [
+  'tal'
+]
+name: 'Uxn Assembly'
+patterns: [
+  {
+    include: '#comments'
+  }
+  {
+    include: '#hex'
+  }
+  {
+    include: '#preprocessor'
+  }
+  {
+    include: '#ascii'
+  }
+  {
+    include: '#padding'
+  }
+  {
+    include: '#labels'
+  }
+  {
+    include: '#addressing'
+  }
+  {
+    include: '#unmarked'
+  }
+]
+repository:
+  comments:
+    patterns: [
+      {
+        begin: '\\('
+        beginCaptures:
+          0:
+            name: 'punctuation.definition.block.uxntal'
+        end: '\\)'
+        endCaptures:
+          0:
+            name: 'punctuation.definition.block.uxntal'
+        name: 'comment.block'
+        patterns: [
+          {
+            include: '#comments'
+          }
+        ]
+      }
+    ]
+  hex:
+    patterns: [
+      {
+        match: '(#)[0-9a-f]{2}{1,2}(\\s|$)'
+        captures:
+          1:
+            name: 'punctuation.rune.hex.uxntal'
+        name: 'constant.numeric'
+      }
+      {
+        match: '#\\S+'
+        name: 'invalid.illegal'
+      }
+    ]
+  preprocessor:
+    patterns: [
+      {
+        match: '%(BRK|LIT2?r?|(INC|POP|DUP|NIP|SWP|OVR|ROT|EQU|NEQ|GTH|LTH|JMP|JCN|JSR|STH|LDZ|STZ|LDR|STR|LDA|STA|DEI|DEO|ADD|SUB|MUL|DIV|AND|ORA|EOR|SFT)[2rk]{,3})(\\s|$)'
+        name: 'invalid.illegal'
+      }
+      {
+        match: '%([0-9a-f]{2})*(\\s|$)'
+        name: 'invalid.illegal'
+      }
+      {
+        begin: '((%)[^\\s%}]+)\\s*(\\{)'
+        beginCaptures:
+          1:
+            name: 'entity.name.function'
+          2:
+            name: 'punctuation.rune.macro.uxntal'
+          3:
+            name: 'punctuation.definition.block.uxntal'
+        end: '(\\})(\\s|$)'
+        endCaptures:
+          1:
+            name: 'punctuation.definition.block.uxntal'
+        name: 'meta.preprocessor.uxntal'
+        patterns: [
+          {
+            include: '$self'
+          }
+        ]
+      }
+      {
+        match: '(~)(\\S+)(\\s|$)'
+        captures:
+          1:
+            name: 'punctuation.rune.include.uxntal'
+          2:
+            name: 'string.unquoted.include.uxntal'
+        name: 'keyword.control.directive.uxntal'
+      }
+    ]
+  ascii:
+    patterns: [
+      {
+        match: '(")\\S+(\\s|$)'
+        captures:
+          1:
+            name: 'punctuation.rune.string.uxntal'
+        name: 'string.unquoted'
+      }
+      {
+        match: '(\')\\S(\\s|$)'
+        captures:
+          1:
+            name: 'punctuation.rune.char.uxntal'
+        name: 'constant.character'
+      }
+    ]
+  padding:
+    patterns: [
+      {
+        match: '(\\|)[0-9a-f]+(\\s|$)'
+        captures:
+          1:
+            name: 'punctuation.rune.pad-absolute.uxntal'
+        name: 'keyword.operator'
+      }
+      {
+        match: '\\|\\S+'
+        name: 'invalid.illegal'
+      }
+      {
+        match: '(\\$)[0-9a-f]+(\\s|$)'
+        captures:
+          1:
+            name: 'punctuation.rune.pad-relative.uxntal'
+        name: 'keyword.operator'
+      }
+      {
+        match: '\\$\\S+'
+        name: 'invalid.illegal'
+      }
+    ]
+  labels:
+    patterns: [
+      {
+        match: '(@|&)[0-9a-f]{2}{1,2}(\\s|$)'
+        name: 'invalid.illegal'
+      }
+      {
+        match: '(@|&)(BRK|LIT2?r?|(INC|POP|DUP|NIP|SWP|OVR|ROT|EQU|NEQ|GTH|LTH|JMP|JCN|JSR|STH|LDZ|STZ|LDR|STR|LDA|STA|DEI|DEO|ADD|SUB|MUL|DIV|AND|ORA|EOR|SFT)[2rk]{,3})(\\s|$)'
+        name: 'invalid.illegal'
+      }
+      {
+        match: '(@)\\S+(\\s|$)'
+        captures:
+          1:
+            name: 'punctuation.rune.label.uxntal'
+        name: 'markup.heading'
+      }
+      {
+        match: '(&)\\S+(\\s|$)'
+        captures:
+          1:
+            name: 'punctuation.rune.sublabel.uxntal'
+        name: 'markup.italic'
+      }
+    ]
+  addressing:
+    patterns: [
+      {
+        begin: '((,)|(\\.)|(:)|(;))'
+        beginCaptures:
+          2:
+            name: 'punctuation.rune.literal-relative.uxntal'
+          3:
+            name: 'punctuation.rune.literal-zero-page.uxntal'
+          4:
+            name: 'punctuation.rune.raw-absolute.uxntal'
+          5:
+            name: 'punctuation.rune.literal-absolute.uxntal'
+        end: '(\\s|$)'
+        name: 'addressing'
+        patterns: [
+          {
+            match: '&\\S+'
+            name: 'markup.italic'
+          }
+          {
+            match: '(\\S+)(/\\S+)'
+            captures:
+              1:
+                name: 'markup.heading'
+              2:
+                name: 'markup.italic'
+          }
+          {
+            match: '\\S+'
+            name: 'markup.heading'
+          }
+        ]
+      }
+    ]
+  unmarked:
+    patterns: [
+      {
+        match: '\\b(BRK|LIT2?r?|(INC|POP|DUP|NIP|SWP|OVR|ROT|EQU|NEQ|GTH|LTH|JMP|JCN|JSR|STH|LDZ|STZ|LDR|STR|LDA|STA|DEI|DEO|ADD|SUB|MUL|DIV|AND|ORA|EOR|SFT)[2rk]{,3})(\\s|$)'
+        name: 'support.function'
+      }
+      {
+        match: '\\b[0-9a-f]{2}(\\s|$)'
+        name: 'constant.numeric.raw-byte.uxntal'
+      }
+      {
+        match: '\\b[0-9a-f]{4}(\\s|$)'
+        name: 'constant.numeric.raw-short.uxntal'
+      }
+      {
+        match: '[\\[\\]]+(\\s|$)'
+        name: 'punctuation.bracket.uxntal'
+      }
+      {
+        match: '(\\S+)(\\s|$)'
+        captures:
+          1:
+            name: 'entity.name.function'
+        name: 'meta.preprocessor.uxntal'
+      }
+    ]
