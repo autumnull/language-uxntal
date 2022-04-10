@@ -1,6 +1,6 @@
 {
-  "name": "tree-sitter-uxntal",
-  "version": "0.0.0",
+  "name": "language-uxntal",
+  "version": "0.1.0",
   "description": "Atom language support for Uxntal, the programming language for the Uxn virtual machine.",
   "keywords": [
     "language",
@@ -8,7 +8,7 @@
     "uxn",
     "uxntal"
   ],
-  "repository": "https://github.com/autumnull/tree-sitter-uxntal",
+  "repository": "https://github.com/autumnull/language-uxntal",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
