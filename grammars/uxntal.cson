@@ -74,6 +74,10 @@ repository:
         name: 'invalid.illegal'
       }
       {
+        match: '%[@&;:.,#\'"|$%~]\\S*(\\s|$)'
+        name: 'invalid.illegal'
+      }
+      {
         begin: '((%)[^\\s%}]+)\\s*(\\{)'
         beginCaptures:
           1:
@@ -156,6 +160,10 @@ repository:
         name: 'invalid.illegal'
       }
       {
+        match: '@(\\s|$)'
+        name: 'invalid.illegal'
+      }
+      {
         match: '(@)\\S+(\\s|$)'
         captures:
           1:
@@ -163,7 +171,7 @@ repository:
         name: 'markup.heading'
       }
       {
-        match: '(&)\\S+(\\s|$)'
+        match: '(&)\\S*(\\s|$)'
         captures:
           1:
             name: 'punctuation.rune.sublabel.uxntal'
@@ -187,11 +195,16 @@ repository:
         name: 'addressing'
         patterns: [
           {
-            match: '&\\S+'
+            match: '(&)\\S*'
+            captures: 'punctuation.rune.sublabel.uxntal'
             name: 'markup.italic'
           }
           {
-            match: '(\\S+)(/\\S+)'
+            match: '(/\\S*)'
+            name: 'invalid.illegal'
+          }
+          {
+            match: '(\\S+)(/\\S*)'
             captures:
               1:
                 name: 'markup.heading'
