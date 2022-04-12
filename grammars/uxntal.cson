@@ -74,7 +74,7 @@ repository:
         name: 'invalid.illegal'
       }
       {
-        match: '%[@&;:.,#\'"|$%~]\\S*(\\s|$)'
+        match: '%[@&;:.,#\'"|$%~(]\\S*(\\s|$)'
         name: 'invalid.illegal'
       }
       {
