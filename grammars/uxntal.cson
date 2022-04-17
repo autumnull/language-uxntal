@@ -33,13 +33,13 @@ repository:
   comments:
     patterns: [
       {
-        begin: '\\('
+        begin: '(\\s|^)(\\()(\\s|$)'
         beginCaptures:
-          0:
+          2:
             name: 'punctuation.definition.block.uxntal'
-        end: '(\\s|^)\\)(\\s|$)'
+        end: '(\\s|^)(\\))(\\s|$)'
         endCaptures:
-          0:
+          2:
             name: 'punctuation.definition.block.uxntal'
         name: 'comment.block'
         patterns: [
