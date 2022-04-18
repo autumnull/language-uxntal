@@ -33,11 +33,11 @@ repository:
   comments:
     patterns: [
       {
-        begin: '(\\s|^)(\\()(\\s|$)'
+        begin: '(?<=\\s|^)(\\()(\\s|$)'
         beginCaptures:
           2:
             name: 'punctuation.definition.block.uxntal'
-        end: '(\\s|^)(\\))(\\s|$)'
+        end: '(?<=\\s|^)(\\))(\\s|$)'
         endCaptures:
           2:
             name: 'punctuation.definition.block.uxntal'
@@ -86,7 +86,7 @@ repository:
             name: 'punctuation.rune.macro.uxntal'
           3:
             name: 'punctuation.definition.block.uxntal'
-        end: '(\\})(\\s|$)'
+        end: '(\\})\\S*'
         endCaptures:
           1:
             name: 'punctuation.definition.block.uxntal'
