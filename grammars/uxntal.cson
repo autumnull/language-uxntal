@@ -33,6 +33,19 @@ repository:
   comments:
     patterns: [
       {
+        begin: '(?<=\\s|^)\\(\\S'
+        beginCaptures:
+          0:
+            name: 'invalid.illegal'
+        end: '(?<=\\s|^)(\\))(\\s|$)'
+        name: 'comment.block'
+        patterns: [
+          {
+            include: '#comments'
+          }
+        ]
+      }
+      {
         begin: '(?<=\\s|^)(\\()(\\s|$)'
         beginCaptures:
           2:
